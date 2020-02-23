@@ -17,8 +17,8 @@ export default {
     }
   },
   mounted(){
-    // storage.setItem('a',1)
-    storage.setItem('b',{a:1},'user');
+    storage.setItem('a',1)
+    // storage.setItem('b',{a:1},'user');
   }
 }
 </script>
