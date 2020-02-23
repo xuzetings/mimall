@@ -5,7 +5,7 @@
 </template>
 
 <script>
-import storage from './storage/index'
+
 export default {
   name: 'App',
   components: {
@@ -13,12 +13,21 @@ export default {
   },
   data(){
     return{
+      res:{
 
+      }
     }
   },
   mounted(){
-    storage.setItem('a',1)
-    // storage.setItem('b',{a:1},'user');
+    //本地加载请求静态json文件的形式
+    // this.axios.get('/mock/user/login.json').then((res)=>{
+    //   this.res=res;
+    // });
+    //第二种方式直接看视频
+    //3 集成本地mock环境
+    this.axios.get('user/login').then((res)=>{
+      this.res=res;
+    });
   }
 }
 </script>
