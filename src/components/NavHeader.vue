@@ -48,7 +48,7 @@
                 <li class="product">
                   <a href="/#/product/31" target="_blank">
                     <div class="pro-img">
-                      <img src="/imgs/nav-img/nav-1.png" alt />
+                      <img src="/imgs/nav-img/nav-3.png" alt />
                     </div>
                     <div class="pro-name">小米CC9</div>
                     <div class="pro-price">1799元</div>
@@ -57,7 +57,7 @@
                 <li class="product">
                   <a href="/#/product/31" target="_blank">
                     <div class="pro-img">
-                      <img src="/imgs/nav-img/nav-2.png" alt />
+                      <img src="/imgs/nav-img/nav-4.png" alt />
                     </div>
                     <div class="pro-name">小米CC9</div>
                     <div class="pro-price">1799元</div>
@@ -66,7 +66,7 @@
                 <li class="product">
                   <a href="/#/product/31" target="_blank">
                     <div class="pro-img">
-                      <img src="/imgs/nav-img/nav-1.png" alt />
+                      <img src="/imgs/nav-img/nav-5.png" alt />
                     </div>
                     <div class="pro-name">小米CC9</div>
                     <div class="pro-price">1799元</div>
@@ -75,7 +75,7 @@
                 <li class="product">
                   <a href="/#/product/31" target="_blank">
                     <div class="pro-img">
-                      <img src="/imgs/nav-img/nav-2.png" alt />
+                      <img src="/imgs/nav-img/nav-6.png" alt />
                     </div>
                     <div class="pro-name">小米CC9</div>
                     <div class="pro-price">1799元</div>
@@ -94,7 +94,7 @@
                 <li class="product">
                   <a href target="_blank">
                     <div class="pro-img">
-                      <img src="/imgs/nav-img/nav-2.png" alt />
+                      <img src="/imgs/nav-img/nav-3-1.jpg" alt />
                     </div>
                     <div class="pro-name">小米壁画电视 65英寸</div>
                     <div class="pro-price">6999元</div>
@@ -103,7 +103,7 @@
                 <li class="product">
                   <a href target="_blank">
                     <div class="pro-img">
-                      <img src="/imgs/nav-img/nav-2.png" alt />
+                      <img src="/imgs/nav-img/nav-3-2.jpg" alt />
                     </div>
                     <div class="pro-name">小米全面屏电视E55A</div>
                     <div class="pro-price">1999元</div>
@@ -112,7 +112,7 @@
                 <li class="product">
                   <a href target="_blank">
                     <div class="pro-img">
-                     <img src="/imgs/nav-img/nav-2.png" alt />
+                     <img src="/imgs/nav-img/nav-3-3.png" alt />
                     </div>
                     <div class="pro-name">小米电视4A 32英寸</div>
                     <div class="pro-price">699元</div>
@@ -121,7 +121,7 @@
                 <li class="product">
                   <a href target="_blank">
                     <div class="pro-img">
-                     <img src="/imgs/nav-img/nav-2.png" alt />
+                     <img src="/imgs/nav-img/nav-3-4.jpg" alt />
                     </div>
                     <div class="pro-name">小米电视4A 55英寸</div>
                     <div class="pro-price">1799元</div>
@@ -130,7 +130,7 @@
                 <li class="product">
                   <a href target="_blank">
                     <div class="pro-img">
-                      <img src="/imgs/nav-img/nav-2.png" alt />
+                      <img src="/imgs/nav-img/nav-3-5.jpg" alt />
                     </div>
                     <div class="pro-name">小米电视4A 65英寸</div>
                     <div class="pro-price">2699元</div>
@@ -139,7 +139,7 @@
                 <li class="product">
                   <a href target="_blank">
                     <div class="pro-img">
-                     <img src="/imgs/nav-img/nav-2.png" alt />
+                     <img src="/imgs/nav-img/nav-3-6.png" alt />
                     </div>
                     <div class="pro-name">查看全部</div>
                     <div class="pro-price">查看全部</div>
@@ -162,7 +162,31 @@
 
 <script>
 export default {
-  name: "nav-header"
+  name: "nav-header",
+  data() {
+    return {
+      usernmae:'jack',
+      phoneList:[]
+    }
+  },
+  mounted(){
+    this.getProductList();
+  },
+  methods:{
+    getProductList(){
+      this.axios.get('/products',{
+        prams:{
+          categoryId:'100012',
+          pageSize:'6'
+        }
+      }).then((res)=>{
+        if(res.list>6){
+          this.phoneList = res.list.slice(0,6);
+        }
+      });
+    }
+  }
+
 };
 </script>
 
@@ -212,7 +236,7 @@ export default {
           &::before {
             content: " ";
             @include bgImg(55px, 55px, "/imgs/mi-logo.png", 55px);
-            transition: margin 0.2s;
+            transition: margin 0.5s;
           }
           &::after {
             content: " ";
@@ -220,7 +244,7 @@ export default {
           }
           &:hover::before {
             margin-left: -55px;
-            transition: margin 0.2s;
+            transition: margin 0.5s;
           }
         }
       }
