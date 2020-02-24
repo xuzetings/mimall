@@ -17,7 +17,33 @@
         </div>
       </div>
     </div>
-    <div class="nav-header"></div>
+    <div class="nav-header">
+      <div class="container">
+        <div class="header-logo">
+          <a href="/#/index"></a>
+        </div>
+        <div class="header-menu">
+          <div class="item-menu">
+            <span>小米手机</span>
+            <div class="childern"></div>
+          </div>
+          <div class="item-menu">
+            <span>RedMi红米</span>
+            <div class="childern"></div>
+          </div>
+          <div class="item-menu">
+            <span>电视</span>
+            <div class="childern"></div>
+          </div>
+        </div>
+        <div class="header-search">
+          <div class="wrapper">
+            <input type="text" name="keyword">
+            <a href="javascript:;"></a>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -33,6 +59,8 @@ export default {
 
 
 <style lang="scss">
+@import "./../assets/sass/base";
+@import "./../assets/sass/mixin";
 .header {
   .nav-topbar {
     height: 39px;
@@ -40,12 +68,7 @@ export default {
     background-color: #333333;
     color: #b0b0b0;
     .container {
-      width: 1226px;
-      margin-left: auto;
-      margin-right: auto;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
+      @include flex();
       a {
         display: inline-block;
         color: #b0b0b0;
@@ -57,13 +80,77 @@ export default {
         text-align: center;
         color: #fff;
         .icon-cart {
-          display: inline-block;
-          width: 16px;
-          height: 12px;
-          background: url("../../public/imgs/icon-cart-checked.png") no-repeat
-            center;
-          background-size: contain;
+          @include bgImg(16px,12px,'/imgs/icon-cart-checked.png');
           margin-right: 4px;
+        }
+      }
+    }
+  }
+  .nav-header {
+    .container {
+      height: 112px;
+      @include flex();
+      .header-logo {
+        display: inline-block;
+        width: 55px;
+        height: 55px;
+        background-color: #ff6600;
+        a {
+          display: inline-block;
+          width: 110px;
+          height: 55px;
+          &::before {
+            content: " ";
+            @include bgImg(55px,55px,'/imgs/mi-logo.png',55px);
+            transition: margin .2s;
+          }
+          &::after {
+            content: " ";
+            @include bgImg(55px,55px,'/imgs/mi-home.png',55px);
+          }
+          &:hover::before {
+            margin-left: -55px;
+            transition: margin .2s;
+          }
+        }
+      }
+      .header-menu{
+        display: inline-block;
+        margin-left: -150px;
+        // padding-left: 209px ;
+        .item-menu{
+          display: inline-block;
+          color: #333333;
+          font-weight: bold;
+          font-size: 16px;
+          line-height: 112px;
+          margin-right: 20px;
+
+          span{
+            cursor: pointer;
+          }
+        }
+      }
+      .header-search{
+        width: 309px;
+        .wrapper{
+          height: 50px;
+          border: 1px solid #e0e0e0;
+          display: flex; 
+          align-items: center;
+          input{
+            border: none;
+            box-sizing: border-box;
+            border-right: 1px solid #e0e0e0;
+            width: 243px;
+            height: 50px;
+            padding-left: 14px;
+          }
+          a{
+            display: inline-block;
+            @include bgImg(18px,18px,'/imgs/icon-search.png');
+            margin-left: 23px;
+          }
         }
       }
     }
