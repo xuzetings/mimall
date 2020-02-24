@@ -27,58 +27,13 @@
             <span>小米手机</span>
             <div class="children">
               <ul>
-                <li class="product">
-                  <a href="/#/product/31" target="_blank">
+                <li class="product" v-for="(item,index) in phoneList" :key="index">
+                  <a :href="'/#/product/'+item.id" target="_blank">
                     <div class="pro-img">
-                      <img src="/imgs/nav-img/nav-1.png" alt />
+                      <img :src="item.mainImage" :alt="item.subtitle"/>
                     </div>
-                    <div class="pro-name">小米CC9</div>
-                    <div class="pro-price">1799元</div>
-                  </a>
-                </li>
-                <li class="product">
-                  <a href="/#/product/31" target="_blank">
-                    <div class="pro-img">
-                      <img src="/imgs/nav-img/nav-2.png" alt />
-                    </div>
-                    <div class="pro-name">小米CC9</div>
-                    <div class="pro-price">1799元</div>
-                  </a>
-                </li>
-                <li class="product">
-                  <a href="/#/product/31" target="_blank">
-                    <div class="pro-img">
-                      <img src="/imgs/nav-img/nav-3.png" alt />
-                    </div>
-                    <div class="pro-name">小米CC9</div>
-                    <div class="pro-price">1799元</div>
-                  </a>
-                </li>
-                <li class="product">
-                  <a href="/#/product/31" target="_blank">
-                    <div class="pro-img">
-                      <img src="/imgs/nav-img/nav-4.png" alt />
-                    </div>
-                    <div class="pro-name">小米CC9</div>
-                    <div class="pro-price">1799元</div>
-                  </a>
-                </li>
-                <li class="product">
-                  <a href="/#/product/31" target="_blank">
-                    <div class="pro-img">
-                      <img src="/imgs/nav-img/nav-5.png" alt />
-                    </div>
-                    <div class="pro-name">小米CC9</div>
-                    <div class="pro-price">1799元</div>
-                  </a>
-                </li>
-                <li class="product">
-                  <a href="/#/product/31" target="_blank">
-                    <div class="pro-img">
-                      <img src="/imgs/nav-img/nav-6.png" alt />
-                    </div>
-                    <div class="pro-name">小米CC9</div>
-                    <div class="pro-price">1799元</div>
+                    <div class="pro-name">{{item.name}}</div>
+                    <div class="pro-price">{{itme.price}}</div>
                   </a>
                 </li>
               </ul>
@@ -112,7 +67,7 @@
                 <li class="product">
                   <a href target="_blank">
                     <div class="pro-img">
-                     <img src="/imgs/nav-img/nav-3-3.png" alt />
+                      <img src="/imgs/nav-img/nav-3-3.png" alt />
                     </div>
                     <div class="pro-name">小米电视4A 32英寸</div>
                     <div class="pro-price">699元</div>
@@ -121,7 +76,7 @@
                 <li class="product">
                   <a href target="_blank">
                     <div class="pro-img">
-                     <img src="/imgs/nav-img/nav-3-4.jpg" alt />
+                      <img src="/imgs/nav-img/nav-3-4.jpg" alt />
                     </div>
                     <div class="pro-name">小米电视4A 55英寸</div>
                     <div class="pro-price">1799元</div>
@@ -139,7 +94,7 @@
                 <li class="product">
                   <a href target="_blank">
                     <div class="pro-img">
-                     <img src="/imgs/nav-img/nav-3-6.png" alt />
+                      <img src="/imgs/nav-img/nav-3-6.png" alt />
                     </div>
                     <div class="pro-name">查看全部</div>
                     <div class="pro-price">查看全部</div>
@@ -165,28 +120,29 @@ export default {
   name: "nav-header",
   data() {
     return {
-      usernmae:'jack',
-      phoneList:[]
-    }
+      usernmae: "jack",
+      phoneList: []
+    };
   },
-  mounted(){
+  mounted() {
     this.getProductList();
   },
-  methods:{
-    getProductList(){
-      this.axios.get('/products',{
-        prams:{
-          categoryId:'100012',
-          pageSize:'6'
-        }
-      }).then((res)=>{
-        if(res.list>6){
-          this.phoneList = res.list.slice(0,6);
-        }
-      });
+  methods: {
+    getProductList() {
+      this.axios
+        .get("/products", {
+          prams: {
+            categoryId: "100012",
+            pageSize: "6"
+          }
+        })
+        .then(res => {
+          if (res.list.length > 6) {
+            this.phoneList = res.list.slice(0, 6);
+          }
+        });
     }
   }
-
 };
 </script>
 
