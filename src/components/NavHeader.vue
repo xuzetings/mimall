@@ -143,7 +143,7 @@ export default {
         .get("/products", {
           prams: {
             categoryId: "100012",
-            // pageSize: "6"
+            pageSize: "6"
           }
         })
         .then(res => {
