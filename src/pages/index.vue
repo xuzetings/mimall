@@ -35,7 +35,26 @@ export default {
   },
   data() {
     return {
-      swiperOption: {},
+      swiperOption: {
+        autoplay: true,
+        loop: true,
+        effect: "cube",
+        cubeEffect: {
+          slideShadows: true,
+          shadow: true,
+          shadowOffset: 100,
+          shadowScale: 0.6
+        },
+        pagination: {
+          el: ".swiper-pagination",
+          clickable: true
+        },
+        navigation: {
+          nextEl: ".swiper-button-next",
+          prevEl: ".swiper-button-prev"
+        }
+      },
+
       slideList: [
         {
           id: "42",
@@ -63,5 +82,19 @@ export default {
 };
 </script>
 <style lang="scss">
-  
+.index {
+  .swiper-container {
+    height: 451px;
+    .swiper-button-prev {
+      left: 274px;
+    }
+    .swiper-button-prev {
+      left: 0;
+    }
+    img {
+      width: 100%;
+      height: 100%;
+    }
+  }
+}
 </style>
