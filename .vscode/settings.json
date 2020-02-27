@@ -1,5 +1,8 @@
 {
     "cSpell.words": [
         "mimall"
-    ]
+    ],
+    "python.pythonPath": "/usr/bin/python3",
+    "editor.multiCursorModifier": "ctrlCmd",
+    "C_Cpp.errorSquiggles": "Disabled"
 }

@@ -9,12 +9,13 @@
           <a href="javascript:;">协议规则</a>
         </div>
         <div class="topbar-user">
-          <a href="javascript:;">登陆</a>
-          <a href="javascript:;">注册</a>
-          <a href="javascript:;" class="my-cart">
+          <a href="javascript:;" v-if="username">{{usernmae}}</a>
+          <a href="javascript:;" v-if="!username" @click="login">登陆</a>
+          <a href="javascript:;" v-if="username">我的订单</a>
+          <a href="javascript:;" class="my-cart" @click="goToCart">
             <span class="icon-cart"></span> 购物车
           </a>
-        </div>
+        </div> 
       </div>
     </div>
     <div class="nav-header">
@@ -33,7 +34,7 @@
                       <img :src="item.mainImage" :alt="item.subtitle"/>
                     </div>
                     <div class="pro-name">{{item.name}}</div>
-                    <div class="pro-price">{{itme.price}}</div>
+                    <div class="pro-price">{{item.price | currency}}</div>
                   </a>
                 </li>
               </ul>
@@ -120,20 +121,29 @@ export default {
   name: "nav-header",
   data() {
     return {
-      usernmae: "jack",
+      username: "",
       phoneList: []
     };
+  },
+  filters:{
+    currency(val){
+      if(!val) return '暂未公布';
+      return '￥'+val.toFixed(2)+'元';
+    }
   },
   mounted() {
     this.getProductList();
   },
   methods: {
+    login(){
+      this.$router.push('/login');
+    },
     getProductList() {
       this.axios
         .get("/products", {
           prams: {
             categoryId: "100012",
-            pageSize: "6"
+            // pageSize: "6"
           }
         })
         .then(res => {
@@ -141,6 +151,9 @@ export default {
             this.phoneList = res.list.slice(0, 6);
           }
         });
+    },
+    goToCart(){
+      this.$router.push();
     }
   }
 };
