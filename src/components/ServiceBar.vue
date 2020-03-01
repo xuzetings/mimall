@@ -26,7 +26,7 @@ export default {
 
 
 <style lang="scss">
-  @import './../assets/sass/mixin';
+  @import './../assets/scss/mixin';
   .service{
     padding:33px 0;
     color:#666666;

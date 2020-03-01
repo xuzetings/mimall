@@ -54,12 +54,12 @@
       </div>
       <div class="ads-box">
         <a v-bind:href="'/#/product/'+item.id" v-for="(item,index) in adsList" v-bind:key="index">
-          <img :src="item.img" alt />
+          <img v-lazy="item.img" alt />
         </a>
       </div>
       <div class="banner">
         <a href="/#/product/30">
-          <img src="../../public/imgs/banner-1.png" alt />
+          <img v-lazy="'/imgs/banner-1.png'" alt />
         </a>
       </div>
       <div class="product-box">
@@ -68,20 +68,20 @@
           <div class="wrapper">
             <div class="banner-left">
               <a href="/#/product/35">
-                <img src="../../public/imgs/mix-alpha.jpg" alt />
+                <img v-lazy="'/imgs/mix-alpha.jpg'" alt />
               </a>
             </div>
             <div class="list-box">
               <div class="list" v-for="(arr,i) in phoneList" :key="i">
                 <div class="item" v-for="(item,j) in arr" :key="j">
-                  <span>新品</span>
+                  <span :class="{'new-pro':j%2==0 }">新品</span>
                   <div class="item-img">
-                    <img src="../../public/imgs/nav-img/nav-1.png" alt />
+                    <img :src="item.mainImage" alt />
                   </div>
                   <div class="item-info">
-                    <h3>小米9</h3>
-                    <p>晓龙855+，索尼4800万超广角</p>
-                    <p class="price">2999元</p>
+                    <h3>{{item.name}}</h3>
+                    <p>{{item.subtitle}}</p>
+                    <p class="price" @click="addCart(item.id)">{{item.price}}</p>
                   </div>
                 </div>
               </div>
@@ -90,25 +90,25 @@
         </div>
       </div>
       <service-bar></service-bar>
-      <!-- <modal 
-      title="提示" 
-      sureText="查看购物车" 
-      btnType="1" 
-      modalType="middle" 
-      v-bind:showModal="showModal"
-      v-on:submit="goToCart"
-      v-on:cancel="showModal=false"
+      <modal
+        title="提示"
+        sureText="查看购物车"
+        btnType="1"
+        modalType="middle"
+        v-bind:showModal="showModal"
+        v-on:submit="goToCart"
+        v-on:cancel="showModal=false"
       >
-      <template v-slot:body>
-        <p>商品添加成功！</p>
-      </template>
-      </modal>-->
+        <template v-slot:body>
+          <p>商品添加成功！</p>
+        </template>
+      </modal>
     </div>
   </div>
 </template>
 <script>
 import ServiceBar from "./../components/ServiceBar";
-//   import Modal from './../components/Modal'
+import Modal from "./../components/Modal";
 import { swiper, swiperSlide } from "vue-awesome-swiper";
 import "swiper/dist/css/swiper.css";
 export default {
@@ -116,8 +116,8 @@ export default {
   components: {
     swiper,
     swiperSlide,
-    ServiceBar
-    //   Modal
+    ServiceBar,
+    Modal
   },
   data() {
     return {
@@ -145,7 +145,7 @@ export default {
         },
         {
           id: "45",
-          img: "/imgs/slider/slide-2.jpg"
+          img: "/imgs/slider/IMG_7970.JPG"
         },
         {
           id: "46",
@@ -207,10 +207,8 @@ export default {
           img: "/imgs/ads/ads-4.jpg"
         }
       ],
-      phoneList: [
-        [1, 1, 1, 1],
-        [1, 1, 1, 1]
-      ]
+      phoneList: [],
+      showModal: false
     };
   },
   mounted() {
@@ -230,17 +228,18 @@ export default {
           this.phoneList = [res.list.slice(0, 4), res.list.slice(4, 8)];
         });
     },
-    //   addCart(id){
-    //     this.axios.post('/carts',{
-    //       productId:id,
-    //       selected: true
-    //     }).then((res)=>{
-    //       this.showModal = true;
-    //       this.$store.dispatch('saveCartCount',res.cartTotalQuantity);
-    //     }).catch(()=>{
-    //       this.showModal = true;
-    //     });
-    //   },
+    addCart() {
+      this.showModal = true;
+      // this.axios.post('/carts',{
+      //   productId:id,
+      //   selected: true
+      // }).then((res)=>{
+      //   this.showModal = true;
+      //   this.$store.dispatch('saveCartCount',res.cartTotalQuantity);
+      // }).catch(()=>{
+      //   this.showModal = true;
+      // });
+    },
     goToCart() {
       this.$router.push("/cart");
     }
@@ -248,8 +247,8 @@ export default {
 };
 </script>
 <style lang="scss">
-@import "./../assets/sass/config.scss";
-@import "./../assets/sass/mixin.scss";
+@import "./../assets/scss/config.scss";
+@import "./../assets/scss/mixin.scss";
 .index {
   .swiper-box {
     .nav-menu {
@@ -374,10 +373,24 @@ export default {
             height: 302px;
             background-color: $colorG;
             text-align: center;
+            span {
+              display: inline-block;
+              width: 67px;
+              height: 24px;
+              font-size: 14px;
+              color: #ffffff;
+              line-height: 24px;
+              &.new-pro {
+                background-color: #0f0;
+              }
+              &.kill-pro {
+                background-color: #e00;
+              }
+            }
             .item-img {
               img {
                 height: 195px;
-                margin-left: -15px;
+                width: 90%;
               }
             }
             .item-info {
